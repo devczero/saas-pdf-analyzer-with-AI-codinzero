@@ -1,0 +1,162 @@
+PROMPT1
+
+Please create a Next.js application called PDFtoolAI that allows users to upload
+ a PDF and provides a summarized version of its content. Below are the detailed requirements:
+
+Application Overview:
+
+Users should be able to upload a PDF from their PC.
+The app will analyze the uploaded PDF and display a summarized version of its content.
+Page Details:
+
+Landing Page ("/"):
+Provide a minimalistic introduction to the product.
+Include some text describing the tool as "A modern AI-powered PDF summarizer that saves your 
+time by extracting key insights from your PDFs."
+Add a button to navigate to the /dashboard page.
+Dashboard Page ("/dashboard"):
+Show an upload input field where the user can select a PDF file from their PC.
+Include a button labeled "Analyze PDF" that triggers the summarization process.
+Below the button, display the summarized content after processing.
+If the user is not subscribed (isSubscribed=false), show a subscription button instead of the 
+upload and analyze features (use dummy logic for subscription).
+Design Specifications:
+
+Use a dark modern theme with a dark gray background and purple accent details.
+Ensure the design is minimalistic and responsive.
+Use Tailwind CSS for styling.
+Navbar:
+
+Include a simple navbar with:
+A logo labeled PDFtoolAI.
+Links for Login and Dashboard.
+Technical Requirements:
+
+Use Next.js as the framework.
+Include comments in the code explaining the logic.
+Please provide the complete code structure for this application, including components, pages, and styling.
+
+
+
+
+PROMPT2
+
+Please review this React component for a dashboard page. The app allows users to:
+
+Subscribe to unlock PDF analysis features.
+Upload a PDF file for summarization.
+View a summary of the PDF content.
+Improve the code by:
+
+Optimizing the structure and readability.
+Ensuring better performance and maintainability.
+Using best practices for state management and React hooks.
+Enhancing styling consistency with Tailwind CSS.
+Providing suggestions for implementing a real PDF analysis API backend.
+Do not change the overall functionality or design. Just refactor and enhance the code.
+
+
+
+
+PROMPT 3
+
+Please, now help me implement auth, db, orm and stripe for payments
+1. Authentication (Clerk):
+- Implement Clerk authentication with sign-in and sign-up pages
+- Add middleware for protected routes
+- Setup user profile management
+- Implement webhook handling for user events
+
+2. Database & ORM:
+- Implement Prisma ORM with model I mentioned later in this message
+
+3. Payment Integration (Stripe):
+- Setup Stripe subscription system with:
+  - yearly pricing plans
+  - Payment processing
+  - Webhook handling for subscription events
+  - User subscription status tracking
+  - after payment (where user will get from subscribe button that had dummy functionality now, 
+  user will be redirected to stripe)
+
+  This is the prisma database model you should stick with, dont change it (!):
+
+  model User {
+  id               String        @id @unique
+  email            String       @unique
+  stripeCustomerId String?      @unique
+  name             String?
+  subscription     Subscription?
+  createdAt        DateTime     @default(now())
+  updatedAt        DateTime     @updatedAt
+}
+
+model Subscription {
+  stripeSubscriptionId String   @id @unique
+  status               String
+  currentPeriodStart   DateTime
+  currentPeriodEnd     DateTime
+  createdAt            DateTime @default(now())
+  updatedAt            DateTime @updatedAt
+  interval             String
+  planId               String
+  userId               String   @unique
+  user                 User     @relation(fields: [userId], references: [id])
+}
+
+
+
+
+
+
+PROMPT 4
+
+Please, send me the user implementation in API, and then the code with the folder structure where
+I should implement it, to check his subscriptions (consider the schema.prisma and still dont change it)..
+Then I need to do check for his subscription on the dashboard page
+
+
+PROMPT 5
+
+
+Please, send me the webhooks for clerk and stripe according to the documentation
+and my database schema with typescript
+
+
+PROMPT 6
+
+Please, create a stripe button according to stripe documentation, so it can create a checkout session
+
+
+PROMPT 7
+
+
+Please, for stripe-checkout-session.ts just keep simple functionality of createSubscription() 
+like its in documentation
+and for button, just keep the simple functionality calling this create subscription
+
+
+
+
+USER INTERFACE
+
+Design a modern user interface with clean lines, open spaces, and intuitive navigation,
+Generate a futuristic interface featuring dark background, nice color Details
+please, dont change the functionality, just the UI
+
+
+
+
+
+
+
+
+
+Issues deploying to vercel???
+
+run these commands in this order:
+1) taskkill /F /IM node.exe
+2) Remove-Item -Recurse -Force .next
+3) Remove-Item -Recurse -Force node_modules/.cache
+4) npm install
+5) npm run build
